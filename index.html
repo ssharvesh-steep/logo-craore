@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVG Colorizer</title>
+    <title>Advanced SVG Colorizer</title>
     <style>
         :root {
             --bg-color: #121212;
             --card-bg: rgba(255, 255, 255, 0.05);
             --text-color: #ffffff;
             --accent: #00cdfd;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
@@ -33,73 +34,117 @@
 
         .container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: row;
+            /* Side by side layout */
+            align-items: flex-start;
             gap: 2rem;
             padding: 2rem;
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 90%;
-            width: 600px;
+            border: 1px solid var(--border);
+            max-width: 95%;
+            width: 1000px;
+            height: 80vh;
+            /* Fixed height for scrollable areas */
         }
 
         .svg-wrapper {
-            width: 100%;
+            flex: 1;
             display: flex;
             justify-content: center;
+            align-items: center;
             padding: 20px;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 12px;
             overflow: hidden;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         svg {
             max-width: 100%;
             height: auto;
-            max-height: 400px;
+            max-height: 100%;
         }
 
-        .controls {
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 1rem;
-        }
-
-        .color-control {
+        .controls-wrapper {
+            flex: 0 0 400px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            gap: 1rem;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .controls-header {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .controls-scroll {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
             gap: 0.5rem;
-            padding: 0.5rem;
+            padding-right: 10px;
+            /* Space for scrollbar */
+        }
+
+        /* Custom scrollbar */
+        .controls-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .controls-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .controls-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .path-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
-            transition: transform 0.2s;
+            transition: all 0.2s;
+            border: 1px solid transparent;
         }
 
-        .color-control:hover {
-            transform: translateY(-2px);
+        .path-control:hover {
             background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        label {
-            font-size: 0.8rem;
+        .path-control.active {
+            background: rgba(0, 205, 253, 0.1);
+            border-color: var(--accent);
+        }
+
+        .path-label {
+            font-size: 0.85rem;
             opacity: 0.8;
+            width: 60px;
         }
 
         input[type="color"] {
             -webkit-appearance: none;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             cursor: pointer;
             background: none;
             padding: 0;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
         input[type="color"]::-webkit-color-swatch-wrapper {
@@ -107,15 +152,37 @@
         }
 
         input[type="color"]::-webkit-color-swatch {
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
+        }
+
+        input[type="text"] {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            width: 80px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Highlight class for SVG paths */
+        .highlighted-path {
+            stroke: #fff;
+            stroke-width: 2px;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+            z-index: 10;
         }
     </style>
 </head>
 
 <body>
-
-    <h1>SVG Chromatic Control</h1>
 
     <div class="container">
         <div class="svg-wrapper">
@@ -142,8 +209,14 @@
             </svg>
         </div>
 
-        <div class="controls" id="controls">
-            <!-- JS will populate this -->
+        <div class="controls-wrapper">
+            <div class="controls-header">
+                <h3>Part Controls</h3>
+                <p style="font-size: 0.8rem; opacity: 0.7;">Hover to highlight part • Enter Hex or Pick Color</p>
+            </div>
+            <div class="controls-scroll" id="controls">
+                <!-- JS will populate this -->
+            </div>
         </div>
     </div>
 
@@ -152,59 +225,93 @@
         const paths = svg.querySelectorAll('path');
         const controls = document.getElementById('controls');
 
-        // Find unique colors
-        const uniqueColors = new Set();
-        const colorMap = {}; // original color -> list of paths
-
-        paths.forEach(path => {
-            const fill = path.getAttribute('fill');
-            if (fill) {
-                uniqueColors.add(fill);
-                if (!colorMap[fill]) {
-                    colorMap[fill] = [];
-                }
-                colorMap[fill].push(path);
-            }
-        });
-
         // Helper to convert rgb to hex for color input
         function rgbToHex(rgb) {
-            // Check if it's already hex
             if (rgb.startsWith('#')) return rgb;
-
-            // Extract numbers from rgb(...)
             const result = rgb.match(/\d+/g);
-            if (!result) return '#000000'; // Default fallback
-
+            if (!result) return '#000000';
             return "#" +
                 ((1 << 24) + (parseInt(result[0]) << 16) + (parseInt(result[1]) << 8) + parseInt(result[2])).toString(16).slice(1);
         }
 
-        let colorCounter = 1;
+        paths.forEach((path, index) => {
+            // Ensure ID for referencing
+            if (!path.id) {
+                path.id = `svg-path-${index}`;
+            }
 
-        uniqueColors.forEach(originalColor => {
-            const hexColor = rgbToHex(originalColor);
+            const currentFill = path.getAttribute('fill');
+            const hexColor = rgbToHex(currentFill);
 
-            const wrapper = document.createElement('div');
-            wrapper.className = 'color-control';
+            // Create Control Row
+            const row = document.createElement('div');
+            row.className = 'path-control';
 
-            const label = document.createElement('label');
-            label.innerText = `Layer ${colorCounter++}`;
+            // Label
+            const label = document.createElement('div');
+            label.className = 'path-label';
+            label.innerText = `Part ${index + 1}`;
 
-            const input = document.createElement('input');
-            input.type = 'color';
-            input.value = hexColor;
+            // Color Picker
+            const colorInput = document.createElement('input');
+            colorInput.type = 'color';
+            colorInput.value = hexColor;
 
-            input.addEventListener('input', (e) => {
+            // Text Input (Hex)
+            const textInput = document.createElement('input');
+            textInput.type = 'text';
+            textInput.value = hexColor;
+
+            // Event: Color Picker Change
+            colorInput.addEventListener('input', (e) => {
                 const newColor = e.target.value;
-                colorMap[originalColor].forEach(path => {
-                    path.setAttribute('fill', newColor);
-                });
+                path.setAttribute('fill', newColor);
+                textInput.value = newColor;
             });
 
-            wrapper.appendChild(label);
-            wrapper.appendChild(input);
-            controls.appendChild(wrapper);
+            // Event: Text Input Change
+            textInput.addEventListener('input', (e) => {
+                let val = e.target.value;
+                if (!val.startsWith('#')) {
+                    val = '#' + val;
+                }
+                // Check if valid hex
+                if (/^#[0-9A-F]{6}$/i.test(val)) {
+                    path.setAttribute('fill', val);
+                    colorInput.value = val;
+                }
+            });
+
+            // Highlighting Logic
+            row.addEventListener('mouseenter', () => {
+                path.classList.add('highlighted-path');
+                row.classList.add('active');
+            });
+
+            row.addEventListener('mouseleave', () => {
+                path.classList.remove('highlighted-path');
+                row.classList.remove('active');
+            });
+
+            row.addEventListener('click', () => {
+                path.classList.add('highlighted-path');
+                setTimeout(() => path.classList.remove('highlighted-path'), 500);
+            })
+
+            path.addEventListener('mouseenter', () => {
+                row.classList.add('active');
+                row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+
+            path.addEventListener('mouseleave', () => {
+                row.classList.remove('active');
+            });
+
+
+            row.appendChild(label);
+            row.appendChild(colorInput);
+            row.appendChild(textInput);
+            controls.appendChild(row);
         });
 
     </script>
