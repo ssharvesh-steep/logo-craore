@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +33,6 @@
             --card-bg: rgba(0, 0, 0, 0.05);
             --text-color: #121212;
             --border: rgba(0, 0, 0, 0.1);
-            --border-btn: #ccc;
         }
 
         h1 {
@@ -78,14 +78,14 @@
 
         .bg-btn:hover {
             opacity: 1;
-            background: rgba(128,128,128,0.1);
+            background: rgba(128, 128, 128, 0.1);
         }
 
         .bg-btn.active {
             opacity: 1;
             background: var(--accent);
             color: #000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .download-btn {
@@ -141,25 +141,24 @@
             transition: background 0.3s;
         }
 
-        /* Checkerboard pattern for transparent view verification */
         .svg-wrapper.check-bg {
-            background-image: 
-                linear-gradient(45deg, #ccc 25%, transparent 25%), 
-                linear-gradient(-45deg, #ccc 25%, transparent 25%), 
-                linear-gradient(45deg, transparent 75%, #ccc 75%), 
+            background-image:
+                linear-gradient(45deg, #ccc 25%, transparent 25%),
+                linear-gradient(-45deg, #ccc 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #ccc 75%),
                 linear-gradient(-45deg, transparent 75%, #ccc 75%);
             background-size: 20px 20px;
             background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
             background-color: #fff;
         }
 
-         .svg-wrapper.white-bg {
-             background-color: #fff;
-         }
-         
-         .svg-wrapper.black-bg {
-             background-color: #000;
-         }
+        .svg-wrapper.white-bg {
+            background-color: #fff;
+        }
+
+        .svg-wrapper.black-bg {
+            background-color: #000;
+        }
 
         svg {
             max-width: 100%;
@@ -169,7 +168,7 @@
         }
 
         .controls-wrapper {
-            flex: 0 0 320px;
+            flex: 0 0 400px;
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -191,15 +190,24 @@
             padding-right: 10px;
         }
 
-        .controls-scroll::-webkit-scrollbar { width: 6px; }
-        .controls-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
-        .controls-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+        .controls-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .controls-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .controls-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
 
         .path-control {
             display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.75rem;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0.8rem;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
             transition: all 0.2s;
@@ -216,17 +224,56 @@
             border-color: var(--accent);
         }
 
+        .control-row-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+        }
+
         .path-label {
             font-size: 0.85rem;
             opacity: 0.8;
-            width: 60px;
+            font-weight: 500;
+        }
+
+        .inputs-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Swatches */
+        .swatches-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .swatch-btn {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+            padding: 0;
+        }
+
+        .swatch-btn:hover {
+            transform: scale(1.2);
+            z-index: 2;
+            border-color: #fff;
         }
 
         input[type="color"] {
             -webkit-appearance: none;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
             background: none;
@@ -235,20 +282,27 @@
             flex-shrink: 0;
         }
 
-        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-        input[type="color"]::-webkit-color-swatch { border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; }
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        input[type="color"]::-webkit-color-swatch {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
 
         input[type="text"] {
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
             border: 1px solid var(--border);
             color: var(--text-color);
-            padding: 6px 10px;
-            border-radius: 6px;
+            padding: 4px 8px;
+            border-radius: 4px;
             font-family: monospace;
             width: 70px;
             text-transform: uppercase;
+            font-size: 0.85rem;
         }
-        
+
         body.light-mode input[type="text"] {
             color: #121212;
             border-color: #ccc;
@@ -261,34 +315,30 @@
 
         .highlighted-path {
             stroke: #fff;
-            stroke-width: 4px; /* Increased for visibility */
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));
+            stroke-width: 4px;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
             z-index: 10;
-             /* Ensure it pops out against both light and dark backgrounds */
-            stroke-dasharray: 5,5; /* Dashed line to be visible on white */
-        }
-        
-        body.light-mode .highlighted-path {
-             stroke: #000;
-             filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+            stroke-dasharray: 5, 5;
         }
 
+        body.light-mode .highlighted-path {
+            stroke: #000;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+        }
     </style>
 </head>
+
 <body>
 
     <div class="main-header">
         <h1>SVG Colorizer</h1>
         <div class="header-controls">
-            <!-- Background Controls -->
             <div class="bg-controls">
                 <button class="bg-btn active" onclick="setBgMode('auto')" title="Auto Contrast">🌗</button>
                 <button class="bg-btn" onclick="setBgMode('dark')" title="Dark Mode">🌑</button>
                 <button class="bg-btn" onclick="setBgMode('light')" title="Light Mode">☀️</button>
                 <button class="bg-btn" onclick="setBgMode('check')" title="Transparent (Checkerboard)">🏁</button>
             </div>
-            
-            <!-- Download Actions -->
             <button class="download-btn" onclick="downloadSVG()">SVG ⬇</button>
             <button class="download-btn" onclick="downloadPNG()">PNG ⬇</button>
         </div>
@@ -296,23 +346,33 @@
 
     <div class="container">
         <div class="svg-wrapper" id="svgWrapper">
-            <!-- Inline SVG content -->
-            <svg id="target-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" style="display: block;" viewBox="6.820647239685059 7.62213134765625 1205.46533203125 1186.73095703125" width="305" height="300" preserveAspectRatio="none">
-                <path class="editable-path" translate="no" fill="rgb(0,205,253)" d="M 492.215 550.932 C 492.174 547.192 492.203 543.452 492.3 539.713 C 493.408 503.89 506.251 466.262 533.247 441.716 C 579.988 399.216 626.453 402.195 683.857 404.393 L 680.121 405.2 C 680.765 407.336 683.178 409.353 685.206 410.112 C 730.587 427.076 751.757 455.281 782.006 491.72 L 850.219 574.583 C 865.819 593.358 881.52 612.047 897.323 630.651 C 903.013 637.317 918.735 654.735 923.206 661.265 L 926.033 662.636 C 936.637 674.677 945.092 688.432 955.941 701.256 L 1102.9 876.564 C 1127.85 906.812 1155 936.349 1179.45 967.14 C 1201.38 994.757 1215.06 1037.39 1211.81 1072.74 C 1201.44 1185.46 1040.85 1239.81 968.94 1147.64 C 914.987 1082.96 860.732 1020.35 806.97 957.124 L 767.708 910.736 C 761.787 903.801 751.847 891.202 745.088 885.89 C 744.775 917.463 746.172 949.091 745.986 980.704 C 745.909 993.936 743.584 1006.84 743.207 1019.24 C 745.213 1027.58 745.918 1040.68 745.96 1049.17 C 746.136 1084.83 741.642 1107.47 723.207 1137.72 C 707.026 1163.76 681.325 1182.47 651.568 1189.86 C 625.233 1196.14 600.812 1190.78 575.452 1191.62 C 578.059 1191.26 579.581 1191.08 582.102 1190.37 L 582.104 1189.06 C 579.479 1187.08 569.497 1184.34 565.796 1182.94 C 528.638 1168.97 504.045 1140.06 493.789 1101.84 C 487.069 1076.81 487.645 1054.4 487.741 1028.5 L 488.116 967.218 C 488.188 955.996 488.552 941.792 487.345 930.843 L 487.747 929.812 C 486.43 916.644 489.085 901.112 488.043 887.797 C 486.48 867.814 487.524 848.763 487.533 828.976 L 487.896 689.069 C 487.927 653.568 483.86 583.778 492.215 550.932 z"/>
-                <path class="editable-path" translate="no" fill="rgb(254,49,34)" d="M 492.215 550.932 C 496.909 557.464 500.654 573.882 503.248 582.348 C 512.408 612.241 537.023 644.369 562.31 662.57 C 587.213 691.993 610.868 722.116 635.731 751.62 L 710.827 841.75 C 716.13 848.201 744.066 879.594 745.088 885.89 C 744.775 917.463 746.172 949.091 745.986 980.704 C 745.909 993.936 743.584 1006.84 743.207 1019.24 C 745.213 1027.58 745.918 1040.68 745.96 1049.17 C 746.136 1084.83 741.642 1107.47 723.207 1137.72 C 707.026 1163.76 681.325 1182.47 651.568 1189.86 C 625.233 1196.14 600.812 1190.78 575.452 1191.62 C 578.059 1191.26 579.581 1191.08 582.102 1190.37 L 582.104 1189.06 C 579.479 1187.08 569.497 1184.34 565.796 1182.94 C 528.638 1168.97 504.045 1140.06 493.789 1101.84 C 487.069 1076.81 487.645 1054.4 487.741 1028.5 L 488.116 967.218 C 488.188 955.996 488.552 941.792 487.345 930.843 L 487.747 929.812 C 486.43 916.644 489.085 901.112 488.043 887.797 C 486.48 867.814 487.524 848.763 487.533 828.976 L 487.896 689.069 C 487.927 653.568 483.86 583.778 492.215 550.932 z"/>
-                <path class="editable-path" translate="no" fill="rgb(254,0,254)" d="M 492.215 550.932 C 496.909 557.464 500.654 573.882 503.248 582.348 C 512.408 612.241 537.023 644.369 562.31 662.57 C 587.213 691.993 610.868 722.116 635.731 751.62 L 710.827 841.75 C 716.13 848.201 744.066 879.594 745.088 885.89 C 744.775 917.463 746.172 949.091 745.986 980.704 C 745.909 993.936 743.584 1006.84 743.207 1019.24 C 739.951 1014.3 736.932 1006.02 734.584 1000.65 C 722.356 971.761 691.125 935.74 657.791 933.409 C 601.398 929.466 544.661 933.996 487.747 929.812 C 486.43 916.644 489.085 901.112 488.043 887.797 C 486.48 867.814 487.524 848.763 487.533 828.976 L 487.896 689.069 C 487.927 653.568 483.86 583.778 492.215 550.932 z"/>
-                <path class="editable-path" translate="no" fill="rgb(0,127,134)" d="M 492.215 550.932 C 492.174 547.192 492.203 543.452 492.3 539.713 C 493.408 503.89 506.251 466.262 533.247 441.716 C 579.988 399.216 626.453 402.195 683.857 404.393 L 680.121 405.2 C 680.765 407.336 683.178 409.353 685.206 410.112 C 730.587 427.076 751.757 455.281 782.006 491.72 L 850.219 574.583 C 865.819 593.358 881.52 612.047 897.323 630.651 C 903.013 637.317 918.735 654.735 923.206 661.265 C 911.969 665.449 805.449 663.901 787.633 663.891 L 610.996 663.874 C 600.583 663.821 569.835 661.911 562.31 662.57 C 537.023 644.369 512.408 612.241 503.248 582.348 C 500.654 573.882 496.909 557.464 492.215 550.932 z"/>
-                <path class="editable-path" translate="no" fill="rgb(254,0,254)" d="M 520.692 10.135 C 606.541 9.26247 692.395 8.90403 778.248 9.05965 L 852.268 9.0293 C 868.674 9.03919 885.66 8.48491 901.933 10.1583 C 967.308 16.8807 1020.93 42.8069 1067.61 89.0546 C 1123.45 144.388 1152.25 214.221 1163.82 291.162 C 1167.14 312.596 1170.53 317.664 1170.56 340.091 C 1170.59 362.052 1168.39 368.573 1165.17 389.145 C 1153.77 463.707 1122.86 535.238 1067.53 587.791 C 1036.5 617.267 997.706 639.473 957.418 653.771 C 945.716 657.924 939.29 661.317 926.776 662.566 L 926.033 662.636 L 923.206 661.265 C 918.735 654.735 903.013 637.317 897.323 630.651 C 881.52 612.047 865.819 593.358 850.219 574.583 L 782.006 491.72 C 751.757 455.281 730.587 427.076 685.206 410.112 C 683.178 409.353 680.765 407.336 680.121 405.2 L 683.857 404.393 L 692.64 403.705 C 699.558 404.624 732.924 402.964 742.732 402.954 C 774.109 403.161 806.097 402.583 837.418 403.211 C 880.252 404.07 915.545 385.994 915.09 338.372 C 918.191 326.926 909.071 300.413 901.435 291.635 C 894.994 284.23 883.32 275.332 873.497 273.348 C 843.002 267.189 809.919 268.147 778.768 267.788 C 727.307 267.246 675.843 266.997 624.379 267.042 C 592.721 266.986 553.307 267.882 522.297 264.767 C 543.932 249.025 562.239 247.045 581.025 222.819 C 602.218 195.489 617.004 165.374 613.898 129.813 C 610.546 91.4316 589.246 53.0213 557.447 31.2246 C 546.664 24.0258 531.639 19.419 521.602 10.9161 L 520.692 10.135 z"/>
-                <path class="editable-path" translate="no" fill="rgb(0,205,253)" d="M 10.5853 803.687 C 7.11709 787.639 7.28723 766.416 7.34959 749.691 C 7.78417 633.132 5.71783 516.588 7.68614 400.045 C 8.0566 392.602 9.97313 385.162 10.8876 377.812 C 15.7518 338.714 22.3477 299.131 37.9864 262.715 C 41.2766 254.908 43.7446 245.726 47.526 238.181 C 126.177 81.2349 291.858 -1.1503 463.951 8.36321 C 482.081 9.36543 502.746 6.74758 520.692 10.135 L 521.602 10.9161 C 531.639 19.419 546.664 24.0258 557.447 31.2246 C 589.246 53.0213 610.546 91.4316 613.898 129.813 C 617.004 165.374 602.218 195.489 581.025 222.819 C 562.239 247.045 543.932 249.025 522.297 264.767 C 510.56 267.487 484.49 265.609 471.495 265.528 C 418.999 265.203 376.322 263.398 331.581 294.89 C 257.042 347.357 266.579 438.895 266.371 519.78 L 266.22 696.512 C 266.192 721.785 267.329 759.312 263.93 783.28 C 257.74 773.826 252.498 763.552 246.472 754.16 C 191.743 668.854 47.3664 698.638 17.4269 791.243 C 16.5262 794.029 13.364 804.429 11.1965 805.705 L 10.5853 803.687 z"/>
-                <path class="editable-path" translate="no" fill="rgb(253,209,21)" d="M 10.5853 803.687 L 11.1965 805.705 C 13.364 804.429 16.5262 794.029 17.4269 791.243 C 47.3664 698.638 191.743 668.854 246.472 754.16 C 252.498 763.552 257.74 773.826 263.93 783.28 C 268.449 798.283 268.375 812.58 270.732 827.624 C 274.454 841.186 278.416 854.58 286.12 866.483 C 323.618 924.422 391.898 932.58 455.229 930.443 C 464.939 930.115 477.938 930.092 487.345 930.843 C 488.552 941.792 488.188 955.996 488.116 967.218 L 487.741 1028.5 C 487.645 1054.4 487.069 1076.81 493.789 1101.84 C 504.045 1140.06 528.638 1168.97 565.796 1182.94 C 569.497 1184.34 579.479 1187.08 582.104 1189.06 L 582.102 1190.37 C 579.581 1191.08 578.059 1191.26 575.452 1191.62 C 563.222 1192.13 550.989 1192.56 538.753 1192.91 C 506.923 1193.57 473.71 1192.89 441.777 1192.99 C 411.021 1192.58 379.898 1193.7 349.296 1190.23 C 196.746 1172.92 65.3764 1069.46 23.7878 920.148 C 19.7329 905.59 16.0801 893.261 15.7515 878.086 C 9.15368 858.837 8.96106 823.967 10.5853 803.687 z"/>
-                <path class="editable-path" translate="no" fill="rgb(94,169,51)" d="M 10.5853 803.687 L 11.1965 805.705 C 13.364 804.429 16.5262 794.029 17.4269 791.243 C 47.3664 698.638 191.743 668.854 246.472 754.16 C 252.498 763.552 257.74 773.826 263.93 783.28 C 268.449 798.283 268.375 812.58 270.732 827.624 C 265.882 832.204 266.997 838.63 265.983 845.281 C 264.644 854.09 262.693 862.796 260.142 871.334 C 232.057 963.215 102.974 986.832 41.3435 913.99 C 35.5319 907.121 30.2451 898.707 25.3945 891.077 C 22.5746 886.642 20.6586 881.771 17.0278 877.914 L 15.7515 878.086 C 9.15368 858.837 8.96106 823.967 10.5853 803.687 z"/>
+            <svg id="target-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" style="display: block;"
+                viewBox="6.820647239685059 7.62213134765625 1205.46533203125 1186.73095703125" width="305" height="300"
+                preserveAspectRatio="none">
+                <!-- No Gradients, just paths -->
+                <path class="editable-path" translate="no" fill="rgb(0,205,253)"
+                    d="M 492.215 550.932 C 492.174 547.192 492.203 543.452 492.3 539.713 C 493.408 503.89 506.251 466.262 533.247 441.716 C 579.988 399.216 626.453 402.195 683.857 404.393 L 680.121 405.2 C 680.765 407.336 683.178 409.353 685.206 410.112 C 730.587 427.076 751.757 455.281 782.006 491.72 L 850.219 574.583 C 865.819 593.358 881.52 612.047 897.323 630.651 C 903.013 637.317 918.735 654.735 923.206 661.265 L 926.033 662.636 C 936.637 674.677 945.092 688.432 955.941 701.256 L 1102.9 876.564 C 1127.85 906.812 1155 936.349 1179.45 967.14 C 1201.38 994.757 1215.06 1037.39 1211.81 1072.74 C 1201.44 1185.46 1040.85 1239.81 968.94 1147.64 C 914.987 1082.96 860.732 1020.35 806.97 957.124 L 767.708 910.736 C 761.787 903.801 751.847 891.202 745.088 885.89 C 744.775 917.463 746.172 949.091 745.986 980.704 C 745.909 993.936 743.584 1006.84 743.207 1019.24 C 745.213 1027.58 745.918 1040.68 745.96 1049.17 C 746.136 1084.83 741.642 1107.47 723.207 1137.72 C 707.026 1163.76 681.325 1182.47 651.568 1189.86 C 625.233 1196.14 600.812 1190.78 575.452 1191.62 C 578.059 1191.26 579.581 1191.08 582.102 1190.37 L 582.104 1189.06 C 579.479 1187.08 569.497 1184.34 565.796 1182.94 C 528.638 1168.97 504.045 1140.06 493.789 1101.84 C 487.069 1076.81 487.645 1054.4 487.741 1028.5 L 488.116 967.218 C 488.188 955.996 488.552 941.792 487.345 930.843 L 487.747 929.812 C 486.43 916.644 489.085 901.112 488.043 887.797 C 486.48 867.814 487.524 848.763 487.533 828.976 L 487.896 689.069 C 487.927 653.568 483.86 583.778 492.215 550.932 z" />
+                <path class="editable-path" translate="no" fill="rgb(254,49,34)"
+                    d="M 492.215 550.932 C 496.909 557.464 500.654 573.882 503.248 582.348 C 512.408 612.241 537.023 644.369 562.31 662.57 C 587.213 691.993 610.868 722.116 635.731 751.62 L 710.827 841.75 C 716.13 848.201 744.066 879.594 745.088 885.89 C 744.775 917.463 746.172 949.091 745.986 980.704 C 745.909 993.936 743.584 1006.84 743.207 1019.24 C 745.213 1027.58 745.918 1040.68 745.96 1049.17 C 746.136 1084.83 741.642 1107.47 723.207 1137.72 C 707.026 1163.76 681.325 1182.47 651.568 1189.86 C 625.233 1196.14 600.812 1190.78 575.452 1191.62 C 578.059 1191.26 579.581 1191.08 582.102 1190.37 L 582.104 1189.06 C 579.479 1187.08 569.497 1184.34 565.796 1182.94 C 528.638 1168.97 504.045 1140.06 493.789 1101.84 C 487.069 1076.81 487.645 1054.4 487.741 1028.5 L 488.116 967.218 C 488.188 955.996 488.552 941.792 487.345 930.843 L 487.747 929.812 C 486.43 916.644 489.085 901.112 488.043 887.797 C 486.48 867.814 487.524 848.763 487.533 828.976 L 487.896 689.069 C 487.927 653.568 483.86 583.778 492.215 550.932 z" />
+                <path class="editable-path" translate="no" fill="rgb(254,0,254)"
+                    d="M 492.215 550.932 C 496.909 557.464 500.654 573.882 503.248 582.348 C 512.408 612.241 537.023 644.369 562.31 662.57 C 587.213 691.993 610.868 722.116 635.731 751.62 L 710.827 841.75 C 716.13 848.201 744.066 879.594 745.088 885.89 C 744.775 917.463 746.172 949.091 745.986 980.704 C 745.909 993.936 743.584 1006.84 743.207 1019.24 C 739.951 1014.3 736.932 1006.02 734.584 1000.65 C 722.356 971.761 691.125 935.74 657.791 933.409 C 601.398 929.466 544.661 933.996 487.747 929.812 C 486.43 916.644 489.085 901.112 488.043 887.797 C 486.48 867.814 487.524 848.763 487.533 828.976 L 487.896 689.069 C 487.927 653.568 483.86 583.778 492.215 550.932 z" />
+                <path class="editable-path" translate="no" fill="rgb(0,127,134)"
+                    d="M 492.215 550.932 C 492.174 547.192 492.203 543.452 492.3 539.713 C 493.408 503.89 506.251 466.262 533.247 441.716 C 579.988 399.216 626.453 402.195 683.857 404.393 L 680.121 405.2 C 680.765 407.336 683.178 409.353 685.206 410.112 C 730.587 427.076 751.757 455.281 782.006 491.72 L 850.219 574.583 C 865.819 593.358 881.52 612.047 897.323 630.651 C 903.013 637.317 918.735 654.735 923.206 661.265 C 911.969 665.449 805.449 663.901 787.633 663.891 L 610.996 663.874 C 600.583 663.821 569.835 661.911 562.31 662.57 C 537.023 644.369 512.408 612.241 503.248 582.348 C 500.654 573.882 496.909 557.464 492.215 550.932 z" />
+                <path class="editable-path" translate="no" fill="rgb(254,0,254)"
+                    d="M 520.692 10.135 C 606.541 9.26247 692.395 8.90403 778.248 9.05965 L 852.268 9.0293 C 868.674 9.03919 885.66 8.48491 901.933 10.1583 C 967.308 16.8807 1020.93 42.8069 1067.61 89.0546 C 1123.45 144.388 1152.25 214.221 1163.82 291.162 C 1167.14 312.596 1170.53 317.664 1170.56 340.091 C 1170.59 362.052 1168.39 368.573 1165.17 389.145 C 1153.77 463.707 1122.86 535.238 1067.53 587.791 C 1036.5 617.267 997.706 639.473 957.418 653.771 C 945.716 657.924 939.29 661.317 926.776 662.566 L 926.033 662.636 L 923.206 661.265 C 918.735 654.735 903.013 637.317 897.323 630.651 C 881.52 612.047 865.819 593.358 850.219 574.583 L 782.006 491.72 C 751.757 455.281 730.587 427.076 685.206 410.112 C 683.178 409.353 680.765 407.336 680.121 405.2 L 683.857 404.393 L 692.64 403.705 C 699.558 404.624 732.924 402.964 742.732 402.954 C 774.109 403.161 806.097 402.583 837.418 403.211 C 880.252 404.07 915.545 385.994 915.09 338.372 C 918.191 326.926 909.071 300.413 901.435 291.635 C 894.994 284.23 883.32 275.332 873.497 273.348 C 843.002 267.189 809.919 268.147 778.768 267.788 C 727.307 267.246 675.843 266.997 624.379 267.042 C 592.721 266.986 553.307 267.882 522.297 264.767 C 543.932 249.025 562.239 247.045 581.025 222.819 C 602.218 195.489 617.004 165.374 613.898 129.813 C 610.546 91.4316 589.246 53.0213 557.447 31.2246 C 546.664 24.0258 531.639 19.419 521.602 10.9161 L 520.692 10.135 z" />
+                <path class="editable-path" translate="no" fill="rgb(0,205,253)"
+                    d="M 10.5853 803.687 C 7.11709 787.639 7.28723 766.416 7.34959 749.691 C 7.78417 633.132 5.71783 516.588 7.68614 400.045 C 8.0566 392.602 9.97313 385.162 10.8876 377.812 C 15.7518 338.714 22.3477 299.131 37.9864 262.715 C 41.2766 254.908 43.7446 245.726 47.526 238.181 C 126.177 81.2349 291.858 -1.1503 463.951 8.36321 C 482.081 9.36543 502.746 6.74758 520.692 10.135 L 521.602 10.9161 C 531.639 19.419 546.664 24.0258 557.447 31.2246 C 589.246 53.0213 610.546 91.4316 613.898 129.813 C 617.004 165.374 602.218 195.489 581.025 222.819 C 562.239 247.045 543.932 249.025 522.297 264.767 C 510.56 267.487 484.49 265.609 471.495 265.528 C 418.999 265.203 376.322 263.398 331.581 294.89 C 257.042 347.357 266.579 438.895 266.371 519.78 L 266.22 696.512 C 266.192 721.785 267.329 759.312 263.93 783.28 C 257.74 773.826 252.498 763.552 246.472 754.16 C 191.743 668.854 47.3664 698.638 17.4269 791.243 C 16.5262 794.029 13.364 804.429 11.1965 805.705 L 10.5853 803.687 z" />
+                <path class="editable-path" translate="no" fill="rgb(253,209,21)"
+                    d="M 10.5853 803.687 L 11.1965 805.705 C 13.364 804.429 16.5262 794.029 17.4269 791.243 C 47.3664 698.638 191.743 668.854 246.472 754.16 C 252.498 763.552 257.74 773.826 263.93 783.28 C 268.449 798.283 268.375 812.58 270.732 827.624 C 274.454 841.186 278.416 854.58 286.12 866.483 C 323.618 924.422 391.898 932.58 455.229 930.443 C 464.939 930.115 477.938 930.092 487.345 930.843 C 488.552 941.792 488.188 955.996 488.116 967.218 L 487.741 1028.5 C 487.645 1054.4 487.069 1076.81 493.789 1101.84 C 504.045 1140.06 528.638 1168.97 565.796 1182.94 C 569.497 1184.34 579.479 1187.08 582.104 1189.06 L 582.102 1190.37 C 579.581 1191.08 578.059 1191.26 575.452 1191.62 C 563.222 1192.13 550.989 1192.56 538.753 1192.91 C 506.923 1193.57 473.71 1192.89 441.777 1192.99 C 411.021 1192.58 379.898 1193.7 349.296 1190.23 C 196.746 1172.92 65.3764 1069.46 23.7878 920.148 C 19.7329 905.59 16.0801 893.261 15.7515 878.086 C 9.15368 858.837 8.96106 823.967 10.5853 803.687 z" />
+                <path class="editable-path" translate="no" fill="rgb(94,169,51)"
+                    d="M 10.5853 803.687 L 11.1965 805.705 C 13.364 804.429 16.5262 794.029 17.4269 791.243 C 47.3664 698.638 191.743 668.854 246.472 754.16 C 252.498 763.552 257.74 773.826 263.93 783.28 C 268.449 798.283 268.375 812.58 270.732 827.624 C 265.882 832.204 266.997 838.63 265.983 845.281 C 264.644 854.09 262.693 862.796 260.142 871.334 C 232.057 963.215 102.974 986.832 41.3435 913.99 C 35.5319 907.121 30.2451 898.707 25.3945 891.077 C 22.5746 886.642 20.6586 881.771 17.0278 877.914 L 15.7515 878.086 C 9.15368 858.837 8.96106 823.967 10.5853 803.687 z" />
             </svg>
         </div>
 
         <div class="controls-wrapper">
             <div class="controls-header">
                 <h3>Part Controls</h3>
-                <p style="font-size: 0.8rem; opacity: 0.7;">Hover to highlight part • Enter Hex or Pick Color</p>
+                <p style="font-size: 0.8rem; opacity: 0.7;">Hover to highlight • Metallic Color or Hex</p>
             </div>
             <div class="controls-scroll" id="controls">
                 <!-- JS will populate this -->
@@ -329,44 +389,51 @@
 
         let isBgAuto = true;
 
-        // --- Helper: RGB to Hex ---
+        // Metallic Color Palette
+        const metallicPalette = [
+            { name: 'Gold', hex: '#D4AF37' },
+            { name: 'Silver', hex: '#C0C0C0' },
+            { name: 'Bronze', hex: '#CD7F32' },
+            { name: 'Copper', hex: '#B87333' },
+            { name: 'Platinum', hex: '#E5E4E2' },
+            { name: 'Gunmetal', hex: '#2C3539' },
+            { name: 'Rose Gold', hex: '#B76E79' }
+        ];
+
         function rgbToHex(rgb) {
+            if (!rgb) return '#000000';
+            if (rgb.startsWith('url')) return null;
             if (rgb.startsWith('#')) return rgb;
             const result = rgb.match(/\d+/g);
             if (!result) return '#000000';
-            return "#" + 
+            return "#" +
                 ((1 << 24) + (parseInt(result[0]) << 16) + (parseInt(result[1]) << 8) + parseInt(result[2])).toString(16).slice(1);
         }
 
-        // --- Helper: Get Luminance ---
-        // Returns 0 (darkest) to 255 (lightest)
         function getLuminance(hex) {
+            if (!hex) return 150;
             const r = parseInt(hex.substr(1, 2), 16);
             const g = parseInt(hex.substr(3, 2), 16);
             const b = parseInt(hex.substr(5, 2), 16);
             return 0.299 * r + 0.587 * g + 0.114 * b;
         }
 
-        // --- Background Logic ---
         function setBgMode(mode) {
             bgBtns.forEach(btn => btn.classList.remove('active'));
-            // Find button by onclick content is hard, so let's just cheat visually or use loop.
-            // Using querySelector matching title for simplicity in this demo logic
-            
-            // Simpler: iterate btns to set active class logic
+
             if (mode === 'auto') { isBgAuto = true; updateAutoBg(); bgBtns[0].classList.add('active'); }
-            else { 
-                isBgAuto = false; 
-                if (mode === 'dark') { 
-                    setBodyTheme('dark'); svgWrapper.className = 'svg-wrapper black-bg'; 
+            else {
+                isBgAuto = false;
+                if (mode === 'dark') {
+                    setBodyTheme('dark'); svgWrapper.className = 'svg-wrapper black-bg';
                     bgBtns[1].classList.add('active');
                 }
-                else if (mode === 'light') { 
-                    setBodyTheme('light'); svgWrapper.className = 'svg-wrapper white-bg'; 
+                else if (mode === 'light') {
+                    setBodyTheme('light'); svgWrapper.className = 'svg-wrapper white-bg';
                     bgBtns[2].classList.add('active');
                 }
-                else if (mode === 'check') { 
-                    setBodyTheme('dark'); svgWrapper.className = 'svg-wrapper check-bg'; 
+                else if (mode === 'check') {
+                    setBodyTheme('dark'); svgWrapper.className = 'svg-wrapper check-bg';
                     bgBtns[3].classList.add('active');
                 }
             }
@@ -379,7 +446,7 @@
 
         function updateAutoBg() {
             if (!isBgAuto) return;
-            
+
             let totalLum = 0;
             let count = 0;
 
@@ -387,27 +454,24 @@
                 const fill = p.getAttribute('fill');
                 if (fill) {
                     const hex = rgbToHex(fill);
-                    totalLum += getLuminance(hex);
+                    const lum = getLuminance(hex);
+                    totalLum += lum;
                     count++;
                 }
             });
 
             const avgLum = count > 0 ? totalLum / count : 0;
-            
-            // If icon is bright (>128), use dark bg. If icon is dark (<128), use light bg.
+
             if (avgLum > 100) {
-                 setBodyTheme('dark');
-                 svgWrapper.className = 'svg-wrapper black-bg';
+                setBodyTheme('dark'); svgWrapper.className = 'svg-wrapper black-bg';
             } else {
-                 setBodyTheme('light');
-                 svgWrapper.className = 'svg-wrapper white-bg';
+                setBodyTheme('light'); svgWrapper.className = 'svg-wrapper white-bg';
             }
         }
 
-        // --- Download Logic ---
         function downloadSVG() {
             const svgData = new XMLSerializer().serializeToString(svg);
-            const blob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+            const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
@@ -419,20 +483,17 @@
 
         function downloadPNG() {
             const canvas = document.createElement('canvas');
-            // Scale up for better resolution
-            const scale = 2; 
+            const scale = 2;
             const vb = svg.viewBox.baseVal;
             canvas.width = vb.width * scale;
             canvas.height = vb.height * scale;
-            
+
             const ctx = canvas.getContext('2d');
             const svgData = new XMLSerializer().serializeToString(svg);
             const img = new Image();
-            
-            // Base64 encode SVG to bypass potential tainting issues if it were external
             img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
-            
-            img.onload = function() {
+
+            img.onload = function () {
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                 const link = document.createElement('a');
                 link.download = 'colored_icon.png';
@@ -443,42 +504,65 @@
             };
         }
 
-
-        // --- Init Controls ---
-
         paths.forEach((path, index) => {
             if (!path.id) path.id = `svg-path-${index}`;
 
             const currentFill = path.getAttribute('fill');
-            const hexColor = rgbToHex(currentFill);
+            const hexColor = rgbToHex(currentFill) || '#000000';
 
             const row = document.createElement('div');
             row.className = 'path-control';
-            
+
+            // Top Row: Label, Inputs
+            const topRow = document.createElement('div');
+            topRow.className = 'control-row-top';
+
             const label = document.createElement('div');
             label.className = 'path-label';
             label.innerText = `Part ${index + 1}`;
-            
+
+            const inputsGroup = document.createElement('div');
+            inputsGroup.className = 'inputs-group';
+
             const colorInput = document.createElement('input');
             colorInput.type = 'color';
             colorInput.value = hexColor;
-            
+
             const textInput = document.createElement('input');
             textInput.type = 'text';
             textInput.value = hexColor;
 
-            // Sync Logic
-            const updatePath = (newColor) => {
-                path.setAttribute('fill', newColor);
-                if (isBgAuto) updateAutoBg(); // Triggers auto-contrast check
-            };
+            inputsGroup.appendChild(colorInput);
+            inputsGroup.appendChild(textInput);
+            topRow.appendChild(label);
+            topRow.appendChild(inputsGroup);
 
-            colorInput.addEventListener('input', (e) => {
-                const val = e.target.value;
-                updatePath(val);
-                textInput.value = val;
+            // Bottom Row: Swatches
+            const swatchesRow = document.createElement('div');
+            swatchesRow.className = 'swatches-row';
+
+            metallicPalette.forEach(metal => {
+                const btn = document.createElement('div');
+                btn.className = 'swatch-btn';
+                btn.style.backgroundColor = metal.hex;
+                btn.title = metal.name;
+
+                btn.addEventListener('click', () => {
+                    updatePath(metal.hex);
+                });
+
+                swatchesRow.appendChild(btn);
             });
 
+            const updatePath = (newColor) => {
+                path.setAttribute('fill', newColor);
+                if (isBgAuto) updateAutoBg();
+                textInput.value = newColor;
+                colorInput.value = newColor;
+            };
+
+            // Event Listeners
+            colorInput.addEventListener('input', (e) => updatePath(e.target.value));
             textInput.addEventListener('input', (e) => {
                 let val = e.target.value;
                 if (!val.startsWith('#')) val = '#' + val;
@@ -497,26 +581,24 @@
                 path.classList.remove('highlighted-path');
                 row.classList.remove('active');
             });
-            row.addEventListener('click', () => {
+            path.addEventListener('click', () => {
                 path.classList.add('highlighted-path');
-                setTimeout(() =>  path.classList.remove('highlighted-path'), 500);
+                setTimeout(() => path.classList.remove('highlighted-path'), 500);
             });
-
             path.addEventListener('mouseenter', () => {
                 row.classList.add('active');
                 row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
             path.addEventListener('mouseleave', () => { row.classList.remove('active'); });
 
-            row.appendChild(label);
-            row.appendChild(colorInput);
-            row.appendChild(textInput);
+            row.appendChild(topRow);
+            row.appendChild(swatchesRow);
             controls.appendChild(row);
         });
 
-        // Initial Auto Check
         updateAutoBg();
 
     </script>
 </body>
+
 </html>
